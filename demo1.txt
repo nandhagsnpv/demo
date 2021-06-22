@@ -1,16 +1,19 @@
-create or replace PROCEDURE EMP_DATE(A DATE,B OUT VARCHAR2,C OUT DATE)
+create or replace PROCEDURE EMP_DATE(A number)
 IS
 CURSOR C1 IS
-select first_name,hire_date from employees where hire_date<A;
+select first_name,hire_date from employees 
+where DEPARTMENT_ID=A;
 X1 VARCHAR2(20);
 X2 DATE;
+
 BEGIN
 OPEN C1;
+
 LOOP
 FETCH C1 INTO X1,X2;
 EXIT WHEN C1%NOTFOUND;
+dbms_output.put_line(X1)
 END LOOP;
+
 CLOSE C1;
-B:=X1;
-C:=X2;
 END;
